@@ -1,0 +1,22 @@
+@model List<RSVPApp.Models.Event>
+@{
+    ViewData["Title"] = "Events";
+}
+
+<div class="page-heading">
+    <h1>Upcoming Events</h1>
+    <p>Pick an event below and let us know if you're coming.</p>
+</div>
+
+<div class="event-grid">
+    @foreach (var evt in Model)
+    {
+        <div class="event-card">
+            <span class="event-date">@evt.Date.ToString("dddd, MMM d, yyyy · h:mm tt")</span>
+            <h2>@evt.Name</h2>
+            <span class="event-location">@evt.Location</span>
+            <p class="event-desc">@evt.Description</p>
+            <a class="btn btn-primary" href="/Rsvp/Create?eventId=@evt.Id">RSVP</a>
+        </div>
+    }
+</div>
