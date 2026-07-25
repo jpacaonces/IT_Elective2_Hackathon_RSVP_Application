@@ -1,5 +1,3 @@
-using System;
-
 namespace RSVPApp.Models
 {
     public class Event
