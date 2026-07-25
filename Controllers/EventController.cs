@@ -3,11 +3,14 @@ using RSVPApp.Data;
 
 namespace RSVPApp.Controllers
 {
-    public class EventsController : Controller
+    public class EventController : Controller
     {
         public IActionResult Index()
         {
-            var events = EventRepository.GetAll();
+            var events = StaticData.Events
+                .OrderBy(e => e.Date)
+                .ToList();
+
             return View(events);
         }
     }
