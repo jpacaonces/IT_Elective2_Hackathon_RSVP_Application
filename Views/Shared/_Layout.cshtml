@@ -6,10 +6,6 @@
     <title>@ViewData["Title"] — RSVP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Bootstrap (CDN with local fallback) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-cu5Y6mY7Qm9Gf3Wv0sV3Gq3Q5bG5s1n6Kc1lE9k1h5R1t1Yc5u1z1X1Z1a1B1C1D" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
@@ -21,42 +17,14 @@
             </a>
             <nav class="site-nav">
                 <a href="/">Home</a>
-                <a href="/Events">Events</a>
+                <a href="/Event">Events</a>
                 <a href="/Rsvp/Create">RSVP</a>
-                @{
-                    var displayName = Context.Session.GetString("DisplayName");
-                    var username = Context.Session.GetString("Username");
-                }
-
-                @if (!string.IsNullOrEmpty(username))
-                {
-                    <span class="nav-welcome">Hello, @displayName</span>
-                    <a asp-controller="Account" asp-action="Logout">Logout</a>
-                }
-                else
-                {
-                    <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-                    <a asp-controller="Account" asp-action="Login" class="nav-cta">Sign in</a>
-                }
+                <a href="/Account/Login" class="nav-cta">Sign in</a>
             </nav>
         </div>
     </header>
 
     <main class="site-main">
-        @if (TempData["Success"] != null)
-        {
-            <div class="container mt-3">
-                <div class="alert alert-success">@TempData["Success"]</div>
-            </div>
-        }
-
-        @if (TempData["Error"] != null)
-        {
-            <div class="container mt-3">
-                <div class="alert alert-danger">@TempData["Error"]</div>
-            </div>
-        }
-
         @RenderBody()
     </main>
 
@@ -66,8 +34,5 @@
             <p>Group Project &mdash; RSVP Application</p>
         </div>
     </footer>
-    <!-- Bootstrap JS (CDN) with local fallback -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-PLACEHOLDER" crossorigin="anonymous"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

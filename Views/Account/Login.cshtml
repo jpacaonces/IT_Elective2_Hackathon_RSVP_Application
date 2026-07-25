@@ -3,86 +3,61 @@
 }
 
 
-<div class="login-page">
+<div class="login-wrapper">
 
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
 
 
     <div class="login-card">
 
 
-        <div class="login-logo">
-            ✨
-        </div>
-
-
         <div class="login-header">
 
-            <span class="brand-small">
-                RSVP MANAGEMENT
-            </span>
+            <div class="logo">
+                🎉
+            </div>
 
             <h1>
                 Welcome Back
             </h1>
 
             <p>
-                Sign in to manage your events,
-                invitations, and guest responses.
+                Sign in to manage your events and RSVP invitations.
             </p>
 
         </div>
 
 
 
-        @if (TempData["Success"] != null)
-        {
-            <div class="success-box">
-                ✔ @TempData["Success"]
-            </div>
-        }
-
-
         @if (ViewBag.Error != null)
         {
-            <div class="login-error">
-                ⚠ @ViewBag.Error
+            <div class="error-box">
+                @ViewBag.Error
             </div>
         }
 
 
 
-        <form asp-controller="Account"
-              asp-action="Login"
-              method="post">
+        <form method="post" action="/Account/Login">
+
 
             @Html.AntiForgeryToken()
 
 
-            @if (ViewBag.ReturnUrl != null)
-            {
-                <input type="hidden"
-                       name="returnUrl"
-                       value="@ViewBag.ReturnUrl" />
-            }
 
-
-
-            <div class="form-group">
+            <div class="input-group">
 
                 <label>
                     Username
                 </label>
 
-
-                <div class="input-box">
+                <div class="input">
 
                     <span>👤</span>
 
                     <input name="username"
                            placeholder="Enter username"
-                           autocomplete="username"
                            required />
 
                 </div>
@@ -91,30 +66,25 @@
 
 
 
-
-            <div class="form-group">
+            <div class="input-group">
 
                 <label>
                     Password
                 </label>
 
 
-                <div class="input-box">
+                <div class="input">
 
                     <span>🔒</span>
-
 
                     <input id="password"
                            type="password"
                            name="password"
                            placeholder="Enter password"
-                           autocomplete="current-password"
                            required />
 
-
                     <button type="button"
-                            class="show-password"
-                            onclick="togglePassword()">
+                            onclick="showPassword()">
 
                         👁
 
@@ -122,14 +92,15 @@
 
                 </div>
 
+
             </div>
 
 
 
-            <button type="submit"
-                    class="login-btn">
 
-                Sign In →
+            <button class="login-button">
+
+                Sign In
 
             </button>
 
@@ -138,337 +109,37 @@
 
 
 
+        <div class="demo-card">
 
-        <div class="register-area">
+            <span>
+                Demo Account
+            </span>
 
-            <p>
-                Don't have an account?
-            </p>
+            <br />
 
-            <a href="/Account/Register" class="register-btn">
-                ✨ Create Account
-            </a>
+            admin / admin123
 
         </div>
 
+
     </div>
+
 
 </div>
 
 
 
-
 <script>
 
-    function togglePassword()
-    {
-        let input = document.getElementById("password");
+    function showPassword(){
 
-        if(input.type === "password")
-        {
-            input.type = "text";
-        }
-        else
-        {
-            input.type = "password";
-        }
+        let p=document.getElementById("password");
+
+        p.type =
+        p.type==="password"
+        ?"text"
+        :"password";
+
     }
 
 </script>
-
-
-
-<style>
-
-
-    /* PAGE CENTER */
-
-    .login-page {
-        min-height: 85vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        background: radial-gradient(circle at top left,#2563eb55,transparent 35%), radial-gradient(circle at bottom right,#7c3aed55,transparent 35%), #0f172a;
-    }
-
-
-
-    /* GLOW EFFECT */
-
-    .glow {
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        border-radius: 50%;
-        filter: blur(80px);
-    }
-
-
-    .glow-one {
-        background: #2563eb;
-        top: -150px;
-        left: -150px;
-    }
-
-
-    .glow-two {
-        background: #9333ea;
-        bottom: -150px;
-        right: -150px;
-    }
-
-
-
-
-    /* CARD */
-
-    .login-card {
-        width: 420px;
-        padding: 45px;
-        background: rgba(255,255,255,.95);
-        border-radius: 25px;
-        box-shadow: 0 30px 70px rgba(0,0,0,.45);
-        position: relative;
-        z-index: 2;
-        animation: show .6s ease;
-    }
-
-
-
-    @@keyframes show {
-
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-
-
-    /* LOGO */
-
-    .login-logo {
-        width: 80px;
-        height: 80px;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: linear-gradient(135deg,#2563eb,#9333ea);
-        color: white;
-        font-size: 40px;
-        box-shadow: 0 15px 30px #2563eb55;
-    }
-
-
-
-
-    /* HEADER */
-
-    .login-header {
-        text-align: center;
-        margin-top: 25px;
-    }
-
-
-    .brand-small {
-        color: #2563eb;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 2px;
-    }
-
-
-    .login-header h1 {
-        margin-top: 15px;
-        font-size: 36px;
-        color: #0f172a;
-    }
-
-
-
-    .login-header p {
-        color: #64748b;
-        font-size: 15px;
-    }
-
-
-
-    /* FORM */
-
-
-    .form-group {
-        margin-top: 25px;
-    }
-
-
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #334155;
-        }
-
-
-
-
-    .input-box {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: #f8fafc;
-        border: 1px solid #cbd5e1;
-        padding: 12px 15px;
-        border-radius: 15px;
-        transition: .3s;
-    }
-
-
-
-        .input-box:focus-within {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px #2563eb22;
-        }
-
-
-
-        .input-box span {
-            font-size: 20px;
-        }
-
-
-
-        .input-box input {
-            border: none;
-            outline: none;
-            background: none;
-            width: 100%;
-            font-size: 15px;
-        }
-
-
-
-
-    .show-password {
-        border: none;
-        background: none;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-
-
-
-    /* LOGIN BUTTON */
-
-
-    .login-btn {
-        margin-top: 30px;
-        width: 100%;
-        padding: 15px;
-        border: none;
-        border-radius: 50px;
-        background: linear-gradient(90deg,#2563eb,#7c3aed);
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: .3s;
-    }
-
-
-
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px #2563eb55;
-        }
-
-
-
-    /* REGISTER */
-
-
-    .register-area {
-        text-align: center;
-        margin-top: 25px;
-    }
-
-
-
-        .register-area p {
-            color: #64748b;
-        }
-
-
-
-    .register-btn {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 12px 30px;
-        border-radius: 50px;
-        border: 2px solid #2563eb;
-        color: #2563eb;
-        font-weight: 700;
-        text-decoration: none;
-        transition: .3s;
-    }
-
-
-
-        .register-btn:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-
-
-    /* ALERT */
-
-    .success-box,
-    .login-error {
-        padding: 12px;
-        border-radius: 12px;
-        margin-top: 20px;
-        text-align: center;
-    }
-
-
-    .success-box {
-        background: #dcfce7;
-        color: #15803d;
-    }
-
-
-    .login-error {
-        background: #fee2e2;
-        color: #b91c1c;
-    }
-
-
-
-    /* MOBILE */
-
-    @@media(max - width:500px) {
-
-
-        .login-card {
-            width: 90%;
-            padding: 35px 25px;
-        }
-
-
-        .login-header h1 {
-            font-size: 30px;
-        }
-    }
-
-</style>
