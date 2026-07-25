@@ -1,0 +1,455 @@
+/* =========================================================
+   RSVP App — "Invitation Card" visual identity
+   Palette: ink navy / paper cream / brass gold / muted rose
+   Display face: Playfair Display (formal, invitation-like)
+   Body face: Inter
+   ========================================================= */
+
+:root {
+    --ink: #1b2430;
+    --ink-soft: #263244;
+    --paper: #f7f3e9;
+    --paper-dim: #ece5d4;
+    --brass: #c9a227;
+    --brass-soft: #e3c465;
+    --rose: #b85c5c;
+    --text-on-ink: #f3efe4;
+    --text-muted: #9aa4b5;
+    --radius: 4px;
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--ink);
+    color: var(--text-on-ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, .brand-text {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.5em;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+    border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+    background: var(--ink);
+}
+
+.header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+}
+
+.brand-mark {
+    color: var(--brass);
+    font-size: 1.3rem;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 0.95rem;
+}
+
+.site-nav a {
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+}
+
+.site-nav a:hover {
+    color: var(--text-on-ink);
+    border-bottom-color: var(--brass);
+}
+
+.nav-cta {
+    color: var(--brass-soft) !important;
+    border: 1px solid rgba(201, 162, 39, 0.5);
+    border-radius: var(--radius);
+    padding: 8px 16px !important;
+}
+
+.nav-cta:hover {
+    border-color: var(--brass);
+    background: rgba(201, 162, 39, 0.08);
+}
+
+/* ---------- Main / hero invite card ---------- */
+
+.site-main {
+    flex: 1;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+}
+
+.invite-card {
+    position: relative;
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 64px 56px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.invite-card::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(27, 36, 48, 0.18);
+    pointer-events: none;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.75rem;
+    color: var(--rose);
+    margin-bottom: 14px;
+}
+
+.invite-card h1 {
+    font-size: 2.4rem;
+    color: var(--ink);
+}
+
+.lede {
+    color: var(--ink-soft);
+    max-width: 440px;
+    margin: 0 auto 28px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--ink);
+    color: var(--text-on-ink);
+}
+
+.btn-primary:hover {
+    background: var(--ink-soft);
+}
+
+.btn-ghost {
+    border: 1px solid rgba(27, 36, 48, 0.35);
+    color: var(--ink);
+}
+
+.btn-ghost:hover {
+    background: rgba(27, 36, 48, 0.06);
+}
+
+/* ---------- Info strip (3-step explainer) ---------- */
+
+.info-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+}
+
+.info-item {
+    text-align: center;
+    padding: 8px;
+}
+
+.info-number {
+    display: block;
+    font-family: "Playfair Display", serif;
+    font-size: 1.6rem;
+    color: var(--brass);
+    margin-bottom: 8px;
+}
+
+.info-item p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.92rem;
+}
+
+/* ---------- Auth (login) ---------- */
+
+.auth-card {
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.auth-card h1 {
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid rgba(27, 36, 48, 0.25);
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    background: #fff;
+    color: var(--ink);
+}
+
+.field input:focus {
+    outline: none;
+    border-color: var(--brass);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.2);
+}
+
+.form-error {
+    background: rgba(184, 92, 92, 0.12);
+    color: var(--rose);
+    border: 1px solid rgba(184, 92, 92, 0.35);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.hint-box {
+    margin-top: 22px;
+    padding: 12px 14px;
+    background: var(--paper-dim);
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- Events list ---------- */
+
+.page-heading {
+    text-align: center;
+    margin-bottom: 44px;
+}
+
+.page-heading h1 {
+    font-size: 2rem;
+}
+
+.page-heading p {
+    color: var(--text-muted);
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+.event-card {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.event-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--brass);
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.event-date {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--rose);
+}
+
+.event-card h2 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.event-location {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.event-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    flex: 1;
+}
+
+/* ---------- RSVP form + confirmation ---------- */
+
+.form-card {
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 44px 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.form-card h1 {
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.radio-row {
+    display: flex;
+    gap: 18px;
+}
+
+.radio-row label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.confirmation {
+    text-align: center;
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 56px 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.confirmation .seal-big {
+    font-size: 2.4rem;
+    color: var(--brass);
+    display: block;
+    margin-bottom: 14px;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+    border-top: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.seal {
+    color: var(--brass);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+    .header-inner {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .info-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .invite-card, .auth-card, .form-card, .confirmation {
+        padding: 40px 26px;
+    }
+}
