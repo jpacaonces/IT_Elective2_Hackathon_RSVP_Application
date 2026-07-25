@@ -1,31 +1,499 @@
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
-<section class="invite-card">
-    <p class="eyebrow">You are cordially invited to</p>
-    <h1>Every Event, One Reply</h1>
-    <p class="lede">
-        Browse upcoming events and let us know if you'll be attending &mdash;
-        it only takes a moment.
-    </p>
-    <div class="card-actions">
-        <a class="btn btn-primary" href="/Event">View Events</a>
-        <a class="btn btn-ghost" href="/Account/Login">Sign in</a>
-    </div>
-</section>
+<div class="home-page">
 
-<section class="info-strip">
-    <div class="info-item">
-        <span class="info-number">01</span>
-        <p>Sign in with the account your team gave you.</p>
-    </div>
-    <div class="info-item">
-        <span class="info-number">02</span>
-        <p>Pick the event you're invited to.</p>
-    </div>
-    <div class="info-item">
-        <span class="info-number">03</span>
-        <p>Submit your RSVP and you're all set.</p>
-    </div>
-</section>
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-bg"></div>
+
+        <div class="hero-content">
+
+            <span class="badge">
+                ✨ Smart RSVP Platform
+            </span>
+
+            <h1>
+                Every Event,
+                <br />
+                <span>One Simple Reply</span>
+            </h1>
+
+            <p>
+                Manage invitations, track attendance,
+                and respond to events effortlessly.
+                Everything you need in one place.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a class="btn-primary-custom" href="/Event">
+                    Explore Events →
+                </a>
+
+                <a class="btn-outline-custom" href="/Account/Login">
+                    Sign In
+                </a>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div>
+                    <strong>500+</strong>
+                    <small>Events</small>
+                </div>
+
+                <div>
+                    <strong>10K+</strong>
+                    <small>Guests</small>
+                </div>
+
+                <div>
+                    <strong>99%</strong>
+                    <small>Success</small>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- EVENT CARD -->
+
+        <div class="hero-image">
+
+            <div class="event-card">
+
+                <div class="calendar">
+                    📅
+                </div>
+
+                <h3>
+                    Annual Team Gathering
+                </h3>
+
+                <p>
+                    Friday, August 25
+                    <br />
+                    6:00 PM
+                </p>
+
+
+                <div class="attendance">
+                    ✔ RSVP Open
+                </div>
+
+
+                <div class="guest">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <label>
+                        +120 attending
+                    </label>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- STEPS -->
+
+    <section class="steps">
+
+
+        <div class="section-title">
+
+            <h2>
+                How It Works
+            </h2>
+
+            <p>
+                Three simple steps to manage your invitation.
+            </p>
+
+        </div>
+
+
+
+        <div class="step-container">
+
+
+            <div class="step-card">
+
+                <div class="number">
+                    01
+                </div>
+
+                <h4>
+                    Login
+                </h4>
+
+                <p>
+                    Access your account securely.
+                </p>
+
+            </div>
+
+
+
+            <div class="step-card">
+
+                <div class="number">
+                    02
+                </div>
+
+                <h4>
+                    Choose Event
+                </h4>
+
+                <p>
+                    Select the event you received.
+                </p>
+
+            </div>
+
+
+
+            <div class="step-card">
+
+                <div class="number">
+                    03
+                </div>
+
+                <h4>
+                    Confirm RSVP
+                </h4>
+
+                <p>
+                    Submit attendance instantly.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<style>
+
+    body {
+        background: #f8fafc;
+    }
+
+
+    .home-page {
+        overflow: hidden;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 80px 8%;
+        position: relative;
+    }
+
+
+    .hero-bg {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle,#2563eb55,transparent 65%);
+        top: -200px;
+        right: -200px;
+    }
+
+
+
+    .hero-content {
+        max-width: 600px;
+        z-index: 2;
+    }
+
+
+
+    .badge {
+        background: #dbeafe;
+        color: #2563eb;
+        padding: 10px 22px;
+        border-radius: 50px;
+        font-weight: 600;
+    }
+
+
+
+    h1 {
+        margin-top: 25px;
+        font-size: 70px;
+        line-height: 1.05;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+
+
+        h1 span {
+            background: linear-gradient(90deg,#2563eb,#7c3aed);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+
+
+    .hero-content p {
+        margin-top: 25px;
+        font-size: 20px;
+        color: #64748b;
+    }
+
+
+
+    .hero-buttons {
+        margin-top: 40px;
+        display: flex;
+        gap: 20px;
+    }
+
+
+
+    .btn-primary-custom {
+        background: #2563eb;
+        color: white;
+        padding: 16px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 15px 30px #2563eb55;
+    }
+
+
+
+    .btn-outline-custom {
+        border: 2px solid #2563eb;
+        color: #2563eb;
+        padding: 14px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+
+
+
+    /* STATS */
+
+
+    .stats {
+        display: flex;
+        gap: 50px;
+        margin-top: 50px;
+    }
+
+
+        .stats strong {
+            display: block;
+            font-size: 32px;
+            color: #0f172a;
+        }
+
+
+        .stats small {
+            color: #64748b;
+        }
+
+
+
+    /* EVENT CARD */
+
+
+    .hero-image {
+        z-index: 2;
+    }
+
+
+    .event-card {
+        width: 360px;
+        padding: 40px;
+        border-radius: 30px;
+        background: white;
+        box-shadow: 0 30px 70px rgba(0,0,0,.15);
+        animation: float 4s infinite;
+    }
+
+
+    @@keyframes float {
+        50%
+
+    {
+        transform: translateY(-15px);
+    }
+
+    }
+
+
+
+    .calendar {
+        font-size: 50px;
+    }
+
+
+
+    .event-card h3 {
+        margin-top: 20px;
+    }
+
+
+
+    .attendance {
+        background: #dcfce7;
+        color: #16a34a;
+        padding: 10px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+
+
+    .guest {
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+
+        .guest span {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            border: 3px solid white;
+            margin-left: -10px;
+        }
+
+
+
+        .guest label {
+            margin-left: 15px;
+        }
+
+
+
+    /* STEPS */
+
+
+    .steps {
+        padding: 80px 8%;
+    }
+
+
+
+    .section-title {
+        text-align: center;
+    }
+
+
+
+        .section-title h2 {
+            font-size: 40px;
+        }
+
+
+
+    .step-container {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+
+
+    .step-card {
+        background: white;
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 20px 40px rgba(0,0,0,.08);
+        transition: .3s;
+    }
+
+
+
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+
+
+
+    .number {
+        font-size: 40px;
+        font-weight: 800;
+        color: #2563eb;
+    }
+
+
+
+    .step-card p {
+        color: #64748b;
+    }
+
+
+
+
+   @@media(max - width:900px) {
+        .hero
+
+    {
+        flex-direction: column;
+        text-align: center;
+    }
+
+
+    h1 {
+        font-size: 45px;
+    }
+
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+
+    .hero-image {
+        margin-top: 50px;
+    }
+
+
+    .step-container {
+        grid-template-columns: 1fr;
+    }
+
+    }
+</style>

@@ -1,0 +1,15 @@
+@model RSVPApp.Models.RsvpEntry
+@{
+    ViewData["Title"] = "RSVP Confirmed";
+    var evt = (RSVPApp.Models.Event)ViewBag.Event;
+}
+
+<section class="confirmation">
+    <span class="seal-big">&#10058;</span>
+    <h1>@(Model.IsAttending ? "You're on the list!" : "Reply Received")</h1>
+    <p>
+        Thanks, @Model.GuestName — your RSVP for <strong>@evt.Name</strong> has been recorded
+        @(Model.IsAttending ? $"for {Model.NumberOfGuests} guest(s)." : "as not attending.")
+    </p>
+    <a class="btn btn-primary" href="/Event">Back to Events</a>
+</section>
