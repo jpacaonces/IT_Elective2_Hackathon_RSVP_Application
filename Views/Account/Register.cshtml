@@ -2,372 +2,471 @@
     ViewData["Title"] = "Create Account";
 }
 
+<div class="auth-wrapper">
+    <!-- LEFT SIDE: BRANDING BANNER -->
+    <div class="auth-banner">
+        <div class="banner-top">
+            <div class="brand-logo">
+                <div class="logo-icon">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+                <span>RSVPApp</span>
+            </div>
 
-<div class="register-page">
+            <div class="banner-headline">
+                <h1>Your next great event is waiting</h1>
+                <p>Join thousands of attendees discovering and RSVPing to events they love.</p>
+            </div>
 
-    <div class="register-glow glow-one"></div>
-    <div class="register-glow glow-two"></div>
-
-
-    <div class="register-card">
-
-
-        <div class="register-logo">
-            ✨
+            <ul class="feature-list">
+                <li>
+                    <div class="icon-circle"><i class="fa-solid fa-ticket"></i></div>
+                    <span>Browse hundreds of curated events</span>
+                </li>
+                <li>
+                    <div class="icon-circle"><i class="fa-regular fa-envelope"></i></div>
+                    <span>Instant RSVP confirmation by email</span>
+                </li>
+                <li>
+                    <div class="icon-circle"><i class="fa-solid fa-user-check"></i></div>
+                    <span>Manage all your upcoming attendance</span>
+                </li>
+                <li>
+                    <div class="icon-circle"><i class="fa-regular fa-bell"></i></div>
+                    <span>Get notified when new events open</span>
+                </li>
+            </ul>
         </div>
 
-
-        <div class="register-header">
-
-            <span>
-                RSVP MANAGEMENT
-            </span>
-
-            <h1>
-                Create Account
-            </h1>
-
-            <p>
-                Join RSVP and manage your invitations easily.
-            </p>
-
+        <div class="banner-bottom">
+            <div class="attendee-badge">
+                <div class="avatar-group">
+                    <span class="avatar">A</span>
+                    <span class="avatar">S</span>
+                    <span class="avatar">R</span>
+                    <span class="avatar">T</span>
+                    <span class="avatar">M</span>
+                </div>
+                <div class="badge-text">
+                    <strong>2,400+ attendees</strong>
+                    <small>joined this month</small>
+                </div>
+            </div>
         </div>
-
-
-
-        @if (ViewBag.Error != null)
-        {
-            <div class="register-error">
-                ⚠ @ViewBag.Error
-            </div>
-        }
-
-
-
-        <form asp-controller="Account"
-              asp-action="Register"
-              method="post">
-
-
-            @Html.AntiForgeryToken()
-
-
-
-            <div class="form-group">
-
-                <label>
-                    Username
-                </label>
-
-                <div class="input-box">
-
-                    <span>👤</span>
-
-                    <input name="username"
-                           placeholder="Enter username"
-                           required />
-
-                </div>
-
-            </div>
-
-
-
-            <div class="form-group">
-
-                <label>
-                    Display Name
-                </label>
-
-
-                <div class="input-box">
-
-                    <span>✨</span>
-
-                    <input name="displayName"
-                           placeholder="Your name" />
-
-                </div>
-
-            </div>
-
-
-
-
-            <div class="form-group">
-
-                <label>
-                    Email
-                </label>
-
-
-                <div class="input-box">
-
-                    <span>📧</span>
-
-                    <input name="email"
-                           type="email"
-                           placeholder="Email address" />
-
-                </div>
-
-            </div>
-
-
-
-
-
-            <div class="form-group">
-
-                <label>
-                    Password
-                </label>
-
-
-                <div class="input-box">
-
-                    <span>🔒</span>
-
-
-                    <input id="password"
-                           name="password"
-                           type="password"
-                           placeholder="Create password"
-                           required />
-
-                </div>
-
-            </div>
-
-
-
-
-            <button type="submit"
-                    class="register-btn">
-
-                Create Account →
-
-            </button>
-
-
-
-        </form>
-
-
-
-
-        <div class="login-link">
-
-            Already have an account?
-
-            <a asp-controller="Account"
-               asp-action="Login">
-
-                Sign In
-
-            </a>
-
-        </div>
-
-
     </div>
 
+    <!-- RIGHT SIDE: FORM CONTAINER -->
+    <div class="auth-form-container">
+        <div class="auth-card">
+
+            <!-- TOGGLE TABS -->
+            <div class="auth-tabs">
+                <a href="/Account/Login" class="tab-btn">Sign In</a>
+                <a href="/Account/Register" class="tab-btn active">Create Account</a>
+            </div>
+
+            <div class="form-header">
+                <h2>Create your account</h2>
+                <p>Free forever — no credit card required.</p>
+            </div>
+
+            <!-- REGISTRATION FORM -->
+            <form asp-controller="Account" asp-action="Register" method="post" class="register-form">
+                @Html.AntiForgeryToken()
+
+                <!-- FULL NAME -->
+                <div class="form-group">
+                    <label for="fullName">Full name</label>
+                    <input type="text" id="fullName" name="FullName" placeholder="Alex Rivera" required />
+                </div>
+
+                <!-- EMAIL ADDRESS -->
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="Email" placeholder="you@example.com" required />
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" name="Password" placeholder="••••••••" required />
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('password', 'eyeIcon1')">
+                            <i class="fa-regular fa-eye" id="eyeIcon1"></i>
+                        </button>
+                    </div>
+                    <small class="field-hint">At least 8 characters with uppercase, number, and symbol</small>
+                </div>
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="confirmPassword">Confirm password</label>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirmPassword" name="ConfirmPassword" placeholder="••••••••" required />
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', 'eyeIcon2')">
+                            <i class="fa-regular fa-eye" id="eyeIcon2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TERMS CHECKBOX -->
+                <div class="form-check-row">
+                    <input type="checkbox" id="terms" name="AgreeToTerms" required />
+                    <label for="terms">
+                        I agree to the <a href="/Terms" target="_blank">Terms of Service</a> and <a href="/Privacy" target="_blank">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Create Free Account</button>
+            </form>
+
+            <div class="auth-footer-text">
+                Already have an account? <a href="/Account/Login">Sign in instead</a>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-
-
-
 <style>
+    /* PAGE RESET & BASE STYLES */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: #fcfcfd;
+    }
 
-
-    .register-page {
-        min-height: 85vh;
+    .auth-wrapper {
         display: flex;
-        justify-content: center;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    /* LEFT SIDE BANNER */
+    .auth-banner {
+        width: 50%;
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        padding: 48px 64px;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+
+    .brand-logo {
+        display: flex;
         align-items: center;
-        position: relative;
-        overflow: hidden;
-        background: radial-gradient(circle at top left,#2563eb55,transparent 35%), radial-gradient(circle at bottom right,#9333ea55,transparent 35%), #0f172a;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 60px;
     }
 
-
-
-    .register-glow {
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        filter: blur(100px);
-        border-radius: 50%;
-    }
-
-
-
-    .glow-one {
-        background: #2563eb;
-        top: -150px;
-        left: -150px;
-    }
-
-
-
-    .glow-two {
-        background: #9333ea;
-        bottom: -150px;
-        right: -150px;
-    }
-
-
-
-
-    .register-card {
-        width: 430px;
-        padding: 45px;
-        background: white;
-        border-radius: 30px;
-        box-shadow: 0 30px 70px rgba(0,0,0,.4);
-        position: relative;
-        z-index: 2;
-    }
-
-
-
-    .register-logo {
-        width: 80px;
-        height: 80px;
-        margin: auto;
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg,#2563eb,#9333ea);
-        color: white;
+        font-size: 18px;
+    }
+
+    .banner-headline h1 {
+        font-size: 38px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .banner-headline p {
+        font-size: 16px;
+        opacity: 0.9;
+        margin-bottom: 40px;
+        max-width: 440px;
+        line-height: 1.5;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+    .icon-circle {
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
-        font-size: 40px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
     }
 
-
-
-    .register-header {
-        text-align: center;
-        margin-top: 20px;
+    .attendee-badge {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 12px 20px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
     }
 
+    .avatar-group {
+        display: flex;
+    }
 
+    .avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: #ddd6fe;
+        color: #6d28d9;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #7c3aed;
+        margin-left: -8px;
+    }
 
-        .register-header span {
-            color: #2563eb;
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+    .badge-text {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+    }
+
+        .badge-text strong {
             font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 13px;
         }
 
-
-
-        .register-header h1 {
-            color: #0f172a;
-            margin-top: 15px;
+        .badge-text small {
+            opacity: 0.8;
         }
 
-
-
-        .register-header p {
-            color: #64748b;
-        }
-
-
-
-
-    .form-group {
-        margin-top: 20px;
+    /* RIGHT SIDE FORM */
+    .auth-form-container {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        box-sizing: border-box;
+        background-color: #fafafc;
     }
 
+    .auth-card {
+        width: 100%;
+        max-width: 400px;
+    }
 
+    /* TABS */
+    .auth-tabs {
+        background: #f1f5f9;
+        padding: 4px;
+        border-radius: 12px;
+        display: flex;
+        margin-bottom: 32px;
+    }
+
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+    .form-header h2 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0 0 6px;
+    }
+
+    .form-header p {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 24px;
+    }
+
+    /* FORM INPUTS */
+    .form-group {
+        margin-bottom: 16px;
+    }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+    .field-hint {
+        display: block;
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 4px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .password-input-wrapper input {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        border-radius: 10px;
+        font-size: 13px;
+        color: #0f172a;
+        box-sizing: border-box;
+        outline: none;
+        transition: border 0.2s;
+    }
+
+        .form-group input:focus,
+        .password-input-wrapper input:focus {
+            border-color: #8b5cf6;
+            background: #ffffff;
+        }
+
+    .password-input-wrapper {
+        position: relative;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .form-check-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+        margin-bottom: 24px;
+    }
+
+        .form-check-row input {
+            accent-color: #7c3aed;
+            cursor: pointer;
+        }
+
+        .form-check-row label {
+            font-size: 12px;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+            .form-check-row label a {
+                color: #7c3aed;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+    .btn-submit {
+        width: 100%;
+        background: #7c3aed;
+        color: #ffffff;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+        .btn-submit:hover {
+            background: #6d28d9;
+        }
+
+    .auth-footer-text {
+        text-align: center;
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 20px;
+    }
+
+        .auth-footer-text a {
+            color: #7c3aed;
+            text-decoration: none;
             font-weight: 600;
         }
 
+    /* RESPONSIVE LAYOUT */
+    @@media (max-width: 900px) {
+        .auth-banner {
+            display: none;
+        }
 
-
-
-    .input-box {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: #f8fafc;
-        padding: 12px 15px;
-        border-radius: 15px;
-        border: 1px solid #cbd5e1;
-    }
-
-
-
-        .input-box input {
+        .auth-form-container {
             width: 100%;
-            border: none;
-            outline: none;
-            background: none;
-        }
-
-
-
-
-
-    .register-btn {
-        width: 100%;
-        margin-top: 30px;
-        padding: 15px;
-        border: none;
-        border-radius: 50px;
-        background: linear-gradient(90deg,#2563eb,#9333ea);
-        color: white;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-
-
-        .register-btn:hover {
-            transform: translateY(-3px);
-        }
-
-
-
-    .register-error {
-        background: #fee2e2;
-        color: #b91c1c;
-        padding: 12px;
-        border-radius: 12px;
-        text-align: center;
-    }
-
-
-
-
-    .login-link {
-        text-align: center;
-        margin-top: 25px;
-        color: #64748b;
-    }
-
-
-
-        .login-link a {
-            color: #2563eb;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-
-
-    @@media(max - width:500px) {
-
-        .register-card {
-            width: 90%;
-            padding: 30px;
         }
     }
-
 </style>
+
+<script>
+    // Password visibility toggle helper
+    function togglePasswordVisibility(inputId, iconId) {
+        const passwordInput = document.getElementById(inputId);
+        const eyeIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+</script>

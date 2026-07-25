@@ -1,108 +1,78 @@
 @model RSVPApp.Models.RsvpEntry
 
 @{
-    ViewData["Title"] = "RSVP Confirmed";
-    var evt = (RSVPApp.Models.Event)ViewBag.Event;
+    ViewData["Title"] = "RSVP Confirmation";
+    Layout = "_Layout";
+    var relatedEvent = ViewBag.Event as RSVPApp.Models.Event;
 }
 
+<div class="container py-5" style="max-width: 600px;">
 
-<section class="confirmation-page">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success rounded-3 mb-4 text-center">
+            🎉 @TempData["Success"]
+        </div>
+    }
 
-
-    <div class="confirmation-card">
-
-
-        <div class="success-icon">
-
-            @(Model.IsAttending ? "✓" : "✕")
-
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden text-center">
+        <!-- HEADER -->
+        <div class="p-4 text-white" style="background-color: #10b981;">
+            <div class="fs-1 mb-2">✅</div>
+            <h2 class="h4 fw-bold mb-0">RSVP Confirmed!</h2>
+            <p class="mb-0 opacity-75 small">Reference ID: #@Model.Id</p>
         </div>
 
-
-
-        <span class="confirmation-label">
-            RSVP RESPONSE
-        </span>
-
-
-
-        <h1>
-
-            @(Model.IsAttending
-                        ? "You're on the list!" 
-                                : "Reply Received")
-
-        </h1>
-
-
-
-
-        <p class="confirmation-message">
-
-            Thank you,
-            <strong>@Model.GuestName</strong>
-
-            <br />
-
-            Your RSVP for
-
-            <strong>@evt.Name</strong>
-
-            has been recorded.
-
-
-            @if (Model.IsAttending)
+        <!-- DETAILS BODY -->
+        <div class="card-body p-4 text-start">
+            @if (relatedEvent != null)
             {
-                <br />
-                <span>
-                    We reserved
-                    <strong>@Model.NumberOfGuests guest(s)</strong>
-                    for you.
-                </span>
-            }
-            else
-            {
-                <br />
-                <span>
-                    We have recorded that you cannot attend.
-                </span>
+                <div class="p-3 bg-light rounded-3 mb-4">
+                    <h5 class="fw-bold mb-1 text-dark">@relatedEvent.Title</h5>
+                    <div class="text-muted small">📅 @relatedEvent.Date</div>
+                    <div class="text-muted small">📍 @relatedEvent.Location</div>
+                </div>
             }
 
-        </p>
+            <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Reservation Summary</h6>
 
-
-
-
-        <div class="event-summary">
-
-
-            <div>
-                📅
-                @evt.Date.ToString("MMMM dd, yyyy")
+            <div class="row g-3 small text-muted">
+                <div class="col-6">
+                    <strong>Guest Name:</strong>
+                    <div>@Model.GuestName</div>
+                </div>
+                <div class="col-6">
+                    <strong>Email:</strong>
+                    <div>@Model.Email</div>
+                </div>
+                <div class="col-6">
+                    <strong>Total Guests:</strong>
+                    <div>@Model.NumberOfGuests</div>
+                </div>
+                <div class="col-6">
+                    <strong>Attending:</strong>
+                    <div>
+                        @if (Model.IsAttending)
+                        {
+                            <span class="badge bg-success">Yes</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">No</span>
+                        }
+                    </div>
+                </div>
+                <div class="col-12">
+                    <strong>Submitted On:</strong>
+                    <div>@Model.SubmittedAt.ToString("f")</div>
+                </div>
             </div>
 
+            <hr class="my-4" />
 
-            <div>
-                📍
-                @evt.Location
+            <div class="d-grid gap-2">
+                <a href="/Home/Index" class="btn btn-outline-primary rounded-3">Return to Dashboard</a>
             </div>
-
-
         </div>
-
-
-
-
-        <a asp-controller="Events"
-           asp-action="Index"
-           class="confirmation-button">
-
-            Back to Events →
-
-        </a>
-
-
     </div>
-
-
-</section>
+</div>

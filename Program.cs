@@ -1,21 +1,21 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC (controllers + views)
+// Add Controllers with Views and TempData support
 builder.Services.AddControllersWithViews();
 
-// Session is needed for the static-credential login (Account branch adds the logic).
-// It's wired up here in main so every branch can build on top of it without
-// touching Program.cs again.
+// Configure Session State
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.Name = ".RSVPApp.Session";
 });
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -27,9 +27,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Middleware order is crucial: Session must come BEFORE Authorization
 app.UseSession();
 app.UseAuthorization();
 
+// Route configuration
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

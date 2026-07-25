@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Event Details";
+    Layout = "_Layout";
+    int eventId = (int)(ViewData["EventId"] ?? 0);
+}
+
+<div class="container py-5" style="max-width: 800px;">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mb-4" role="alert">
+            🎉 @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <a href="/Home/Index" class="text-decoration-none text-muted mb-3 d-inline-block">← Back to Events</a>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="p-4 text-white" style="background-color: #7c3aed;">
+            <span class="badge bg-light text-dark mb-2">⚡ Event #@eventId</span>
+            <h1 class="h3 fw-bold mb-1">Future of AI in Product Design</h1>
+            <p class="mb-0 opacity-75">Hosted by Priya Nair</p>
+        </div>
+
+        <div class="card-body p-4">
+            <h5 class="fw-bold mb-3">About this event</h5>
+            <p class="text-muted">
+                Join industry leaders for an interactive session on integrating machine learning tools
+                into modern UI/UX design workflows.
+            </p>
+
+            <hr class="my-4" />
+
+            <div class="row g-3 text-muted small mb-4">
+                <div class="col-sm-6">📅 <strong>Date:</strong> Aug 12, 2026 · 10:00 AM</div>
+                <div class="col-sm-6">📍 <strong>Location:</strong> Moscone Center West</div>
+                <div class="col-sm-6">🕒 <strong>Deadline:</strong> RSVP by Aug 10, 2026</div>
+                <div class="col-sm-6">🎟️ <strong>Price:</strong> Free</div>
+            </div>
+
+            <form asp-controller="Rsvp" asp-action="Confirm" method="post">
+                <input type="hidden" name="id" value="@eventId" />
+                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3" style="background-color: #7c3aed; border: none;">
+                    Confirm My RSVP
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -3,26 +3,187 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] — RSVP</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Bootstrap (CDN with local fallback) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-cu5Y6mY7Qm9Gf3Wv0sV3Gq3Q5bG5s1n6Kc1lE9k1h5R1t1Yc5u1z1X1Z1a1B1C1D" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <title>@ViewData["Title"] — RSVPApp</title>
 
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+            /* BASE LAYOUT */
+            body {
+                font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+                background-color: #f6f5ff !important;
+                color: #1e293b;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            /* HEADER / NAVBAR CONTAINER */
+            .site-header {
+                background-color: #ffffff !important;
+                border-bottom: 1px solid #eef2f6 !important;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                width: 100%;
+            }
+
+            .header-inner {
+                max-width: 1360px;
+                margin: 0 auto;
+                padding: 0 32px;
+                height: 64px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            /* BRAND LOGO */
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none !important;
+            }
+
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #8b5cf6;
+                font-size: 16px;
+                background-color: #f3e8ff;
+            }
+
+            .brand-text {
+                font-size: 20px;
+                font-weight: 800;
+                color: #111827;
+                letter-spacing: -0.4px;
+            }
+
+            .brand-accent {
+                color: #8b5cf6;
+            }
+
+            /* CENTER NAV LINKS */
+            .center-nav {
+                display: flex;
+                align-items: center;
+                gap: 32px;
+            }
+
+            /* RIGHT AUTH ACTIONS */
+            .right-nav {
+                display: flex;
+                align-items: center;
+                gap: 24px;
+            }
+
+            /* NAV LINKS */
+            .nav-link {
+                color: #6b7280 !important;
+                text-decoration: none !important;
+                font-size: 13.5px;
+                font-weight: 500;
+                transition: color 0.15s ease;
+            }
+
+                .nav-link:hover {
+                    color: #8b5cf6 !important;
+                }
+
+            .text-signin {
+                color: #4b5563 !important;
+                font-weight: 500;
+            }
+
+            .nav-welcome {
+                font-size: 13.5px;
+                font-weight: 600;
+                color: #374151;
+            }
+
+            /* GET STARTED BUTTON */
+            .nav-cta {
+                background-color: #8b5cf6 !important;
+                color: #ffffff !important;
+                padding: 8px 20px !important;
+                border-radius: 10px !important;
+                font-size: 13.5px;
+                font-weight: 600 !important;
+                text-decoration: none !important;
+                display: inline-block;
+                line-height: 1.4;
+                border: none !important;
+            }
+
+                .nav-cta:hover {
+                    background-color: #7c3aed !important;
+                }
+
+            /* MAIN & FOOTER */
+            .site-main {
+                flex-grow: 1;
+            }
+
+            .site-footer {
+                background-color: #ffffff;
+                border-top: 1px solid #f1f5f9;
+                padding: 24px 0;
+                margin-top: auto;
+            }
+
+            .footer-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                color: #94a3b8;
+                font-size: 13px;
+            }
+
+                .footer-inner p {
+                    margin: 0;
+                }
+    </style>
 </head>
 <body>
+
+    <!-- HEADER / NAVIGATION BAR -->
     <header class="site-header">
         <div class="header-inner">
-            <a class="brand" href="/">
-                <span class="brand-mark">&#9998;</span>
-                <span class="brand-text">The&nbsp;RSVP</span>
+            <!-- BRAND LOGO -->
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <span class="brand-text">RSVP<span class="brand-accent">App</span></span>
             </a>
-            <nav class="site-nav">
-                <a href="/">Home</a>
-                <a href="/Events">Events</a>
-                <a href="/Rsvp/Create">RSVP</a>
+
+            <!-- CENTER NAVIGATION LINKS -->
+            <nav class="center-nav">
+                <a asp-controller="Home" asp-action="Index" class="nav-link">Events</a>
+                <a asp-controller="Rsvp" asp-action="Create" class="nav-link">RSVP</a>
+            </nav>
+
+            <!-- RIGHT AUTH ACTIONS -->
+            <div class="right-nav">
                 @{
                     var displayName = Context.Session.GetString("DisplayName");
                     var username = Context.Session.GetString("Username");
@@ -31,43 +192,54 @@
                 @if (!string.IsNullOrEmpty(username))
                 {
                     <span class="nav-welcome">Hello, @displayName</span>
-                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    <a asp-controller="Account" asp-action="Logout" class="nav-link">Logout</a>
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-                    <a asp-controller="Account" asp-action="Login" class="nav-cta">Sign in</a>
+                    <a asp-controller="Account" asp-action="Login" class="nav-link text-signin">Sign in</a>
+                    <a asp-controller="Account" asp-action="Register" class="nav-cta">Get Started</a>
                 }
-            </nav>
+            </div>
         </div>
     </header>
 
+    <!-- MAIN BODY CONTENT -->
     <main class="site-main">
         @if (TempData["Success"] != null)
         {
             <div class="container mt-3">
-                <div class="alert alert-success">@TempData["Success"]</div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         }
 
         @if (TempData["Error"] != null)
         {
             <div class="container mt-3">
-                <div class="alert alert-danger">@TempData["Error"]</div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         }
 
         @RenderBody()
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-inner">
             <span class="seal">&#10058;</span>
             <p>Group Project &mdash; RSVP Application</p>
         </div>
     </footer>
-    <!-- Bootstrap JS (CDN) with local fallback -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-PLACEHOLDER" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

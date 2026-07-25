@@ -1,17 +1,27 @@
-using Microsoft.AspNetCore.Mvc;
-using RSVPApp.Data;
+using RSVPApp.Models;
 
-namespace RSVPApp.Controllers
+namespace RSVPApp.Data
 {
-    public class EventController : Controller
+    public static class EventRepository
     {
-        public IActionResult Index()
+        private static readonly List<Event> _events = new List<Event>
         {
-            var events = StaticData.Events
-                .OrderBy(e => e.Date)
-                .ToList();
+         
+        };
 
-            return View(events);
+        public static IEnumerable<Event> GetAll()
+        {
+            return _events;
+        }
+
+        public static Event? GetById(int id)
+        {
+            return _events.FirstOrDefault(e => e.Id == id);
+        }
+
+        public static IEnumerable<Event> GetByCategory(string category)
+        {
+            return _events.Where(e => e.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

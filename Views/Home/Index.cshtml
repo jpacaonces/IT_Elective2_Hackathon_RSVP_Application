@@ -1,589 +1,535 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Events";
+    Layout = "_Layout";
 }
 
-<div class="home-page">
-   
+<div class="rsvp-dashboard">
 
-    <!-- HERO -->
-    <section class="hero">
+    <!-- TOP FILTER BAR -->
+    <div class="filter-bar">
+        <button class="filter-btn active" data-category="all">All Events</button>
+        <button class="filter-btn" data-category="Technology">⚡ Technology</button>
+        <button class="filter-btn" data-category="Business">💼 Business</button>
+        <button class="filter-btn" data-category="Design">🎨 Design</button>
+        <button class="filter-btn" data-category="Marketing">📣 Marketing</button>
+        <button class="filter-btn" data-category="Health">🌿 Health</button>
+        <button class="filter-btn" data-category="Education">🎓 Education</button>
+        <button class="filter-btn" data-category="Networking">🤝 Networking</button>
+        <button class="filter-btn" data-category="Arts">✏️ Arts</button>
+    </div>
 
-        <div class="hero-bg"></div>
+    <!-- META BAR -->
+    <div class="dashboard-meta">
+        <span id="event-count-label">Showing 0 events</span>
+        <span class="hint-text">Click any event to view details & RSVP</span>
+    </div>
 
-        <div class="hero-content">
+    <!-- DYNAMIC EVENT GRID -->
+    <div class="events-grid" id="eventsContainer">
+        <!-- Event cards injected dynamically via JS -->
+    </div>
 
-            <span class="badge">
-                ✨ Smart RSVP Platform
-            </span>
-
-            <h1>
-                Every Event,
-                <br />
-                <span>One Simple Reply</span>
-            </h1>
-
-            <p>
-                Manage invitations, track attendance,
-                and respond to events effortlessly.
-                Everything you need in one place.
-            </p>
-
-
-            <div class="hero-buttons">
-
-                <a href="/Events/Index" class="btn-primary-custom">
-                    Explore Events →
-                </a>
-
-                <a class="btn-outline-custom" href="/Account/Login">
-                    Sign In
-                </a>
-
-            </div>
-
-
-            <div class="stats">
-
-                <div>
-                    <strong>500+</strong>
-                    <small>Events</small>
-                </div>
-
-                <div>
-                    <strong>10K+</strong>
-                    <small>Guests</small>
-                </div>
-
-                <div>
-                    <strong>99%</strong>
-                    <small>Success</small>
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- EVENT CARD -->
-
-        <div class="hero-image">
-
-            <div class="event-card">
-
-                <div class="calendar">
-                    📅
-                </div>
-
-                <h3>
-                    Annual Team Gathering
-                </h3>
-
-                <p>
-                    Friday, August 25
-                    <br />
-                    6:00 PM
-                </p>
-
-
-                <div class="attendance">
-                    ✔ RSVP Open
-                </div>
-
-
-                <div class="guest">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                    <label>
-                        +120 attending
-                    </label>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
+    <!-- BOTTOM CALL TO ACTION SECTION -->
+    <section class="cta-banner">
+        <h2>Ready to reserve your spot?</h2>
+        <p>Create a free account to RSVP to any event and receive your confirmation instantly.</p>
+        <a href="/Account/Register" class="btn-cta">Create Free Account</a>
     </section>
-
-
-
-    <!-- STEPS -->
-
-    <section class="steps">
-
-
-        <div class="section-title">
-
-            <h2>
-                How It Works
-            </h2>
-
-            <p>
-                Three simple steps to manage your invitation.
-            </p>
-
-        </div>
-
-
-
-        <div class="step-container">
-
-
-            <div class="step-card">
-
-                <div class="number">
-                    01
-                </div>
-
-                <h4>
-                    Login
-                </h4>
-
-                <p>
-                    Access your account securely.
-                </p>
-
-            </div>
-
-
-
-            <div class="step-card">
-
-                <div class="number">
-                    02
-                </div>
-
-                <h4>
-                    Choose Event
-                </h4>
-
-                <p>
-                    Select the event you received.
-                </p>
-
-            </div>
-
-
-
-            <div class="step-card">
-
-                <div class="number">
-                    03
-                </div>
-
-                <h4>
-                    Confirm RSVP
-                </h4>
-
-                <p>
-                    Submit attendance instantly.
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-    </section>
-
 
 </div>
 
-
-
 <style>
-
+    /* PAGE BASE STYLES */
     body {
-        background: #f8fafc;
+        background-color: #f8fafc;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: #334155;
     }
 
+    .rsvp-dashboard {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 30px 20px 60px;
+    }
 
-    .home-page {
+    /* TOP FILTER BUTTONS */
+    .filter-bar {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        scrollbar-width: thin;
+    }
+
+    .filter-btn {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: #475569;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .filter-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .filter-btn.active {
+            background: #7c3aed;
+            color: #ffffff;
+            border-color: #7c3aed;
+            font-weight: 600;
+        }
+
+    /* META BAR */
+    .dashboard-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 16px 0 24px;
+        font-size: 13px;
+        color: #64748b;
+    }
+
+    .hint-text {
+        font-size: 12px;
+        color: #94a3b8;
+    }
+
+    /* GRID LAYOUT */
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    /* CARD CONTAINER */
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+    }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+    /* CARD BANNER HEADER */
+    .card-banner {
+        padding: 16px;
+        color: #ffffff;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-banner-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .category-badge {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .status-badge {
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .status-closing {
+        background: #fef08a;
+        color: #854d0e;
+    }
+
+    .status-full {
+        background: #ef4444;
+        color: #ffffff;
+    }
+
+    .status-open {
+        background: #6ee7b7;
+        color: #064e3b;
+    }
+
+    .days-left {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 500;
+    }
+
+    /* CARD BODY CONTENT */
+    .card-body {
+        padding: 18px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0 0 4px;
+        line-height: 1.3;
+    }
+
+    .card-host {
+        font-size: 12px;
+        color: #64748b;
+        margin-bottom: 14px;
+    }
+
+        .card-host span {
+            color: #334155;
+            font-weight: 600;
+        }
+
+    .event-details {
+        font-size: 11px;
+        color: #64748b;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+
+    .event-details-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* TAGS */
+    .card-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+    }
+
+    .tag {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    /* PROGRESS BAR */
+    .progress-section {
+        margin-top: auto;
+    }
+
+    .progress-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .seats-text {
+        color: #64748b;
+    }
+
+        .seats-text.full {
+            color: #ef4444;
+        }
+
+    .percentage-text {
+        color: #10b981;
+    }
+
+        .percentage-text.full {
+            color: #ef4444;
+        }
+
+    .progress-track {
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 10px;
         overflow: hidden;
     }
 
+    .progress-fill {
+        height: 100%;
+        background: #10b981;
+        border-radius: 10px;
+    }
 
-    /* HERO */
+        .progress-fill.full {
+            background: #ef4444;
+        }
 
-    .hero {
-        min-height: 90vh;
+    /* CARD FOOTER */
+    .card-footer {
+        padding: 12px 18px;
+        border-top: 1px solid #f1f5f9;
+        background: #fafafa;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 80px 8%;
-        position: relative;
+        align-items: center;
+        font-size: 12px;
     }
 
-
-    .hero-bg {
-        position: absolute;
-        width: 700px;
-        height: 700px;
-        background: radial-gradient(circle,#2563eb55,transparent 65%);
-        top: -200px;
-        right: -200px;
-        pointer-events: none;
-    }
-
-
-    .hero-content {
-        max-width: 600px;
-        z-index: 10;
-        position: relative;
-    }
-
-
-    .badge {
-        background: #dbeafe;
-        color: #2563eb;
-        padding: 10px 22px;
-        border-radius: 50px;
-        font-weight: 600;
-    }
-
-
-
-    h1 {
-        margin-top: 25px;
-        font-size: 70px;
-        line-height: 1.05;
-        font-weight: 800;
-        color: #0f172a;
-    }
-
-
-
-        h1 span {
-            background: linear-gradient(90deg,#2563eb,#7c3aed);
-            -webkit-background-clip:text;
-            color: transparent;
-        }
-
-
-
-    .hero-content p {
-        margin-top: 25px;
-        font-size: 20px;
-        color: #64748b;
-    }
-
-
-    .hero-buttons {
-        margin-top: 40px;
-        display: flex;
-        gap: 20px;
-        position: relative;
-        z-index: 20;
-    }
-
-
-    .btn-primary-custom {
-        display: inline-block;
-        background: #2563eb;
-        color: white;
-        padding: 16px 35px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        box-shadow: 0 15px 30px #2563eb55;
-        cursor: pointer;
-        position: relative;
-        z-index: 30;
-    }
-
-
-        .btn-primary-custom:hover {
-            background: #1d4ed8;
-        }
-
-
-    .btn-outline-custom {
-        display: inline-block;
-        border: 2px solid #2563eb;
-        color: #2563eb;
-        padding: 14px 35px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        cursor: pointer;
-        position: relative;
-        z-index: 30;
-    }
-
-
-        .btn-outline-custom:hover {
-            background: #dbeafe;
-        }
-
-
- 
-
-    /* STATS */
-
-
-    .stats {
-        display: flex;
-        gap: 50px;
-        margin-top: 50px;
-    }
-
-
-        .stats strong {
-            display: block;
-            font-size: 32px;
-            color: #0f172a;
-        }
-
-
-        .stats small {
-            color: #64748b;
-        }
-
-
-
-    /* EVENT CARD */
-
-
-    .hero-image {
-        z-index: 2;
-    }
-
-
-    .event-card {
-        width: 360px;
-        padding: 40px;
-        border-radius: 30px;
-        background: white;
-        box-shadow: 0 30px 70px rgba(0,0,0,.15);
-        animation: float 4s ease-in-out infinite;
-    }
-
-    @@keyframes float {
-        0%, 100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-15px);
-        }
-    
-
-
-
-    .calendar {
-        font-size: 50px;
-    }
-
-
-
-    .event-card h3 {
-        margin-top: 20px;
-    }
-
-
-
-    .attendance {
-        background: #dcfce7;
-        color: #16a34a;
-        padding: 10px;
-        border-radius: 20px;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-
-
-    .guest {
+    .footer-left {
         display: flex;
         align-items: center;
-        margin-top: 25px;
-    }
-
-
-        .guest span {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: #cbd5e1;
-            border: 3px solid white;
-            margin-left: -10px;
-        }
-
-
-
-        .guest label {
-            margin-left: 15px;
-        }
-
-
-
-    /* STEPS */
-
-
-    .steps {
-        padding: 80px 8%;
-    }
-
-
-
-    .section-title {
-        text-align: center;
-    }
-
-
-
-        .section-title h2 {
-            font-size: 40px;
-        }
-
-
-
-    .step-container {
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 30px;
-        margin-top: 50px;
-    }
-
-
-
-    .step-card {
-        background: white;
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 20px 40px rgba(0,0,0,.08);
-        transition: .3s;
-    }
-
-
-
-        .step-card:hover {
-            transform: translateY(-10px);
-        }
-
-
-
-    .number {
-        font-size: 40px;
-        font-weight: 800;
-        color: #2563eb;
-    }
-
-
-
-    .step-card p {
+        gap: 8px;
         color: #64748b;
+        font-size: 11px;
+        font-weight: 600;
     }
 
+    .price {
+        color: #0f172a;
+        font-weight: 700;
+    }
 
+    .btn-rsvp {
+        background: #f3e8ff;
+        color: #7c3aed;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        transition: background 0.2s;
+    }
 
-    @@media (max-width:900px) {
-        .hero
+        .btn-rsvp:hover {
+            background: #e9d5ff;
+        }
 
-    {
-        flex-direction: column;
+    /* CTA BANNER */
+    .cta-banner {
+        margin-top: 50px;
+        background: #f3e8ff;
+        border: 1px solid #e9d5ff;
+        border-radius: 20px;
+        padding: 40px 20px;
         text-align: center;
     }
 
+        .cta-banner h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
 
-    h1 {
-        font-size: 45px;
+        .cta-banner p {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+    .btn-cta {
+        display: inline-block;
+        background: #7c3aed;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        transition: background 0.2s;
     }
 
+        .btn-cta:hover {
+            background: #6d28d9;
+        }
 
-    .hero-buttons {
-        justify-content: center;
+    /* RESPONSIVE BREAKPOINTS */
+    @@media (max-width: 1024px) {
+        .events-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
-
-    .hero-image {
-        margin-top: 50px;
+    @@media (max-width: 640px) {
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
     }
-
-
-    .step-container {
-        grid-template-columns: 1fr;
-    }
-
-            .welcome-user {
-                position: absolute;
-                top: 30px;
-                right: 8%;
-                background: white;
-                padding: 20px 30px;
-                border-radius: 20px;
-                box-shadow: 0 20px 50px rgba(0,0,0,.12);
-                z-index: 50;
-                max-width: 330px;
-            }
-
-
-
-                .welcome-user span {
-                    color: #64748b;
-                }
-
-
-
-                .welcome-user strong {
-                    color: #2563eb;
-                    font-size: 22px;
-                }
-
-
-
-                .welcome-user p {
-                    margin-top: 10px;
-                    font-size: 14px;
-                }
-
-
-
-
-            .logout-btn,
-            .login-home-btn {
-                display: inline-block;
-                margin-top: 10px;
-                padding: 10px 25px;
-                border-radius: 50px;
-                text-decoration: none;
-                font-weight: 600;
-            }
-
-
-
-            .logout-btn {
-                background: #ef4444;
-                color: white;
-            }
-
-
-
-                .logout-btn:hover {
-                    background: #dc2626;
-                    color: white;
-                }
-
-
-
-            .login-home-btn {
-                background: #2563eb;
-                color: white;
-            }
-
-
-
-                .login-home-btn:hover {
-                    background: #1d4ed8;
-                    color: white;
-                }
-    }
-    
 </style>
+
+<script>
+    let allEvents = [];
+
+    document.addEventListener("DOMContentLoaded", function () {
+        initDashboard();
+    });
+
+    async function initDashboard() {
+        allEvents = await fetchEventsFromApi();
+        renderEvents(allEvents);
+        setupFilterButtons();
+    }
+
+    async function fetchEventsFromApi() {
+        try {
+            const response = await fetch('/Home/GetEvents');
+            if (!response.ok) throw new Error("API call failed");
+            return await response.json();
+        } catch (error) {
+            console.warn("Falling back to local data due to fetch issue:", error);
+            return [
+                { id: 1, title: "Future of AI in Product Design", category: "Technology", statusBadge: "Closing Soon", statusClass: "status-closing", bannerColor: "#7c3aed", daysLeft: "in 18 days", host: "Priya Nair", date: "Aug 12, 2026 · 10:00 AM - 2:00 PM", location: "San Francisco, CA — Moscone Center West", deadline: "RSVP by Aug 10, 2026", tags: ["AI", "Product Design", "Workshop"], seatsLeft: 22, bookedSeats: 98, totalSeats: 120, price: "Free", isFull: false },
+                { id: 2, title: "Startup Pitch Night — Summer Edition", category: "Business", statusBadge: "Full", statusClass: "status-full", bannerColor: "#f59e0b", daysLeft: "in 24 days", host: "Marcus Webb", date: "Aug 18, 2026 · 6:30 PM - 9:30 PM", location: "New York, NY — General Assembly", deadline: "RSVP by Aug 16, 2026", tags: ["Startups", "Pitch", "Networking"], seatsLeft: 0, bookedSeats: 80, totalSeats: 80, price: "Free", isFull: true },
+                { id: 3, title: "Brand Identity Masterclass", category: "Design", statusBadge: "Open", statusClass: "status-open", bannerColor: "#f43f5e", daysLeft: "in 28 days", host: "Camille Rousseau", date: "Aug 22, 2026 · 9:00 AM - 5:00 PM", location: "Austin, TX — The Long Center", deadline: "RSVP by Aug 20, 2026", tags: ["Branding", "Design"], seatsLeft: 16, bookedSeats: 24, totalSeats: 40, price: "$49", isFull: false },
+                { id: 4, title: "Growth Marketing Summit 2026", category: "Marketing", statusBadge: "Open", statusClass: "status-open", bannerColor: "#0d9488", daysLeft: "in 42 days", host: "Jordan Kim", date: "Sep 5, 2026 · 8:00 AM - 6:00 PM", location: "Chicago, IL — McCormick Place", deadline: "RSVP by Sep 2, 2026", tags: ["Growth", "Marketing"], seatsLeft: 113, bookedSeats: 187, totalSeats: 300, price: "$99", isFull: false },
+                { id: 5, title: "Mindful Leadership in Tech", category: "Health", statusBadge: "Open", statusClass: "status-open", bannerColor: "#059669", daysLeft: "in 47 days", host: "Aisha Fontaine", date: "Sep 10, 2026 · 9:00 AM - 1:00 PM", location: "Seattle, WA — Chihuly Garden", deadline: "RSVP by Sep 8, 2026", tags: ["Leadership", "Wellness"], seatsLeft: 17, bookedSeats: 33, totalSeats: 50, price: "$29", isFull: false },
+                { id: 6, title: "Next.js & Edge Computing Deep Dive", category: "Technology", statusBadge: "Open", statusClass: "status-open", bannerColor: "#4f46e5", daysLeft: "in 52 days", host: "Tobias Engel", date: "Sep 15, 2026 · 10:00 AM - 5:00 PM", location: "Remote / Online — Zoom Webinar", deadline: "RSVP by Sep 14, 2026", tags: ["Next.js", "Edge"], seatsLeft: 139, bookedSeats: 61, totalSeats: 200, price: "Free", isFull: false },
+                { id: 7, title: "Women in Tech — Fall Networking Mixer", category: "Networking", statusBadge: "Closing Soon", statusClass: "status-closing", bannerColor: "#e11d48", daysLeft: "in 57 days", host: "Lena Vasquez", date: "Sep 20, 2026 · 5:00 PM - 8:00 PM", location: "Boston, MA — Seaport Hotel", deadline: "RSVP by Sep 18, 2026", tags: ["Networking", "Diversity"], seatsLeft: 6, bookedSeats: 144, totalSeats: 150, price: "Free", isFull: false },
+                { id: 8, title: "Digital Illustration Bootcamp", category: "Arts", statusBadge: "Open", statusClass: "status-open", bannerColor: "#d97706", daysLeft: "in 62 days", host: "Riku Tanaka", date: "Sep 25, 2026 · 9:00 AM - 5:00 PM", location: "Portland, OR — PNCA", deadline: "RSVP by Sep 23, 2026", tags: ["Illustration", "Art"], seatsLeft: 18, bookedSeats: 12, totalSeats: 30, price: "$149", isFull: false }
+            ];
+        }
+    }
+
+    function getCategoryIcon(category) {
+        const icons = {
+            'Technology': '⚡',
+            'Business': '💼',
+            'Design': '🎨',
+            'Marketing': '📣',
+            'Health': '🌿',
+            'Education': '🎓',
+            'Networking': '🤝',
+            'Arts': '✏️'
+        };
+        return icons[category] || '📌';
+    }
+
+    function renderEvents(eventsToRender) {
+        const container = document.getElementById("eventsContainer");
+        const countLabel = document.getElementById("event-count-label");
+
+        countLabel.innerText = `Showing ${eventsToRender.length} ${eventsToRender.length === 1 ? 'event' : 'events'}`;
+        container.innerHTML = "";
+
+        if (eventsToRender.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #64748b;">
+                    <h5>No events found for this category.</h5>
+                    <p style="font-size: 13px;">Try selecting another filter above.</p>
+                </div>`;
+            return;
+        }
+
+        eventsToRender.forEach(item => {
+            const percentage = Math.round((item.bookedSeats / item.totalSeats) * 100);
+            const isFull = item.isFull;
+            const categoryIcon = getCategoryIcon(item.category);
+            const detailUrl = `/Rsvp/Details?id=${item.id}`;
+
+            const card = document.createElement("div");
+            card.className = "card";
+
+            // Whole card click navigates to details
+            card.onclick = (e) => {
+                if (!e.target.closest('a')) {
+                    window.location.href = detailUrl;
+                }
+            };
+
+            card.innerHTML = `
+                <div class="card-banner" style="background-color: ${item.bannerColor}">
+                    <div class="card-banner-top">
+                        <span class="category-badge">${categoryIcon} ${item.category}</span>
+                        <span class="status-badge ${item.statusClass}">${item.statusBadge}</span>
+                    </div>
+                    <div class="days-left">${item.daysLeft}</div>
+                </div>
+
+                <div class="card-body">
+                    <div>
+                        <h3 class="card-title">${item.title}</h3>
+                        <div class="card-host">Hosted by <span>${item.host}</span></div>
+
+                        <div class="event-details">
+                            <div class="event-details-row">📅 ${item.date}</div>
+                            <div class="event-details-row">📍 ${item.location}</div>
+                            <div class="event-details-row">🕒 ${item.deadline}</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        ${(item.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-meta">
+                            <span class="seats-text ${isFull ? 'full' : ''}">${isFull ? 'No seats available' : item.seatsLeft + ' seats left'}</span>
+                            <span class="percentage-text ${isFull ? 'full' : ''}">${percentage}%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill ${isFull ? 'full' : ''}" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="footer-left">
+                        <span>👥 ${item.bookedSeats} / ${item.totalSeats}</span>
+                        <span>•</span>
+                        <span class="price">${item.price}</span>
+                    </div>
+                    <a href="${detailUrl}" class="btn-rsvp">
+                        ${isFull ? 'View Details ›' : 'RSVP Now ›'}
+                    </a>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+    }
+
+    function setupFilterButtons() {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", function () {
+                filterBtns.forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+
+                const selectedCategory = this.getAttribute("data-category");
+
+                if (selectedCategory === "all") {
+                    renderEvents(allEvents);
+                } else {
+                    const filtered = allEvents.filter(e =>
+                        e.category.toLowerCase() === selectedCategory.toLowerCase()
+                    );
+                    renderEvents(filtered);
+                }
+            });
+        });
+    }
+</script>

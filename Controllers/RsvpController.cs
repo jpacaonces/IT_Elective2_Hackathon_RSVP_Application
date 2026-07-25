@@ -6,38 +6,39 @@ namespace RSVPApp.Controllers
 {
     public class RsvpController : Controller
     {
-
+        // ==========================================
         // SHOW RSVP FORM
+        // ==========================================
         [HttpGet]
         public IActionResult Create(int eventId)
         {
-            // Require login
-            var username = HttpContext.Session.GetString("Username");
-            if (string.IsNullOrEmpty(username))
+            // Ensure user is logged in
+            if (!IsUserAuthenticated(out var returnUrl, eventId))
             {
-                var returnUrl = Url.Action("Create", "Rsvp", new { eventId = eventId });
-                return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                return RedirectToAction("Login", "Account", new { returnUrl });
             }
 
-            var selectedEvent = StaticData.Events
-                .FirstOrDefault(e => e.Id == eventId);
-
+            // Find requested event (fallback to first event if default/invalid ID provided)
+            var selectedEvent = StaticData.Events.FirstOrDefault(e => e.Id == eventId)
+                                ?? StaticData.Events.FirstOrDefault();
 
             if (selectedEvent == null)
             {
+                TempData["Error"] = "No events available to RSVP for.";
                 return RedirectToAction("Index", "Events");
             }
 
-
             ViewBag.SelectedEvent = selectedEvent;
+
+            // Pre-fill user details from session if available
+            ViewBag.UserDisplayName = HttpContext.Session.GetString("DisplayName");
 
             return View();
         }
 
-
-
-
+        // ==========================================
         // SUBMIT RSVP
+        // ==========================================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(
@@ -47,117 +48,91 @@ namespace RSVPApp.Controllers
             int numberOfGuests,
             bool isAttending)
         {
-
-            // Ensure user is authenticated
-            var username = HttpContext.Session.GetString("Username");
-            if (string.IsNullOrEmpty(username))
+            // Ensure user is logged in
+            if (!IsUserAuthenticated(out var returnUrl, eventId))
             {
-                var returnUrl = Url.Action("Create", "Rsvp", new { eventId = eventId });
-                return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                return RedirectToAction("Login", "Account", new { returnUrl });
             }
 
-            var selectedEvent = StaticData.Events
-                .FirstOrDefault(e => e.Id == eventId);
-
-
+            var selectedEvent = StaticData.Events.FirstOrDefault(e => e.Id == eventId);
 
             if (selectedEvent == null)
             {
+                TempData["Error"] = "Invalid event selected.";
                 return RedirectToAction("Index", "Events");
             }
 
-
-
-
-            if (string.IsNullOrWhiteSpace(guestName) ||
-                string.IsNullOrWhiteSpace(email))
+            // Basic validation
+            if (string.IsNullOrWhiteSpace(guestName) || string.IsNullOrWhiteSpace(email))
             {
-
                 ViewBag.SelectedEvent = selectedEvent;
-
-                ViewBag.Error =
-                    "Please enter your name and email.";
-
+                ViewBag.Error = "Please enter your name and email address.";
                 return View();
-
             }
 
-
-
-
+            // Create new RSVP entry
             var entry = new RsvpEntry
             {
-
-                Id = StaticData.RsvpEntries.Count + 1,
-
+                Id = StaticData.RsvpEntries.Count > 0 ? StaticData.RsvpEntries.Max(r => r.Id) + 1 : 1,
                 EventId = eventId,
-
                 GuestName = guestName,
-
                 Email = email,
-
-                NumberOfGuests =
-                    numberOfGuests < 1
-                    ? 1
-                    : numberOfGuests,
-
-
+                NumberOfGuests = numberOfGuests < 1 ? 1 : numberOfGuests,
                 IsAttending = isAttending,
-
-
                 SubmittedAt = DateTime.Now
-
             };
-
-
-
 
             StaticData.RsvpEntries.Add(entry);
 
-
-
-            return RedirectToAction(
-                "Confirmation",
-                new { id = entry.Id }
-            );
-
+            TempData["Success"] = "Your RSVP has been submitted successfully!";
+            return RedirectToAction("Confirmation", new { id = entry.Id });
         }
 
-
-
-
-
-
+        // ==========================================
         // CONFIRMATION PAGE
+        // ==========================================
         [HttpGet]
         public IActionResult Confirmation(int id)
         {
-
-            var entry = StaticData.RsvpEntries
-                .FirstOrDefault(r => r.Id == id);
-
-
+            var entry = StaticData.RsvpEntries.FirstOrDefault(r => r.Id == id);
 
             if (entry == null)
             {
+                TempData["Error"] = "RSVP record not found.";
                 return RedirectToAction("Index", "Events");
             }
 
-
-
-
-            var relatedEvent = StaticData.Events
-                .FirstOrDefault(e => e.Id == entry.EventId);
-
-
-
+            var relatedEvent = StaticData.Events.FirstOrDefault(e => e.Id == entry.EventId);
             ViewBag.Event = relatedEvent;
 
-
-
             return View(entry);
-
         }
 
+        // ==========================================
+        // HELPER METHODS
+        // ==========================================
+        private bool IsUserAuthenticated(out string returnUrl, int eventId)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            returnUrl = Url.Action("Create", "Rsvp", new { eventId }) ?? "/";
+            return !string.IsNullOrEmpty(username);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            // Fetch event details by 'id' from database/service here
+            ViewData["EventId"] = id;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Confirm(int id)
+        {
+            // Process RSVP logic here (save to DB, send confirmation email)
+            TempData["SuccessMessage"] = "Your spot has been reserved!";
+            return RedirectToAction("Details", new { id });
+        }
     }
 }
