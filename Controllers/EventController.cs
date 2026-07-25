@@ -1,16 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
+using RSVPApp.Data;
 
 namespace RSVPApp.Controllers
 {
-    // STUB — this is the skeleton that lives on main.
-    // Member 2's branch (branch-member2-event-list) replaces this with the
-    // real events listing page and merges it back via pull request.
-    public class EventController : Controller
+    public class EventsController : Controller
     {
-        [HttpGet]
         public IActionResult Index()
         {
-            return Content("Events page coming soon — built on member 2's branch.");
+            var events = EventRepository.GetAll();
+            return View(events);
         }
     }
 }

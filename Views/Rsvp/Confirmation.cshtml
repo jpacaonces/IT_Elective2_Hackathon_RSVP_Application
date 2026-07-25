@@ -1,15 +1,108 @@
 @model RSVPApp.Models.RsvpEntry
+
 @{
     ViewData["Title"] = "RSVP Confirmed";
     var evt = (RSVPApp.Models.Event)ViewBag.Event;
 }
 
-<section class="confirmation">
-    <span class="seal-big">&#10058;</span>
-    <h1>@(Model.IsAttending ? "You're on the list!" : "Reply Received")</h1>
-    <p>
-        Thanks, @Model.GuestName — your RSVP for <strong>@evt.Name</strong> has been recorded
-        @(Model.IsAttending ? $"for {Model.NumberOfGuests} guest(s)." : "as not attending.")
-    </p>
-    <a class="btn btn-primary" href="/Event">Back to Events</a>
+
+<section class="confirmation-page">
+
+
+    <div class="confirmation-card">
+
+
+        <div class="success-icon">
+
+            @(Model.IsAttending ? "✓" : "✕")
+
+        </div>
+
+
+
+        <span class="confirmation-label">
+            RSVP RESPONSE
+        </span>
+
+
+
+        <h1>
+
+            @(Model.IsAttending
+                        ? "You're on the list!" 
+                                : "Reply Received")
+
+        </h1>
+
+
+
+
+        <p class="confirmation-message">
+
+            Thank you,
+            <strong>@Model.GuestName</strong>
+
+            <br />
+
+            Your RSVP for
+
+            <strong>@evt.Name</strong>
+
+            has been recorded.
+
+
+            @if (Model.IsAttending)
+            {
+                <br />
+                <span>
+                    We reserved
+                    <strong>@Model.NumberOfGuests guest(s)</strong>
+                    for you.
+                </span>
+            }
+            else
+            {
+                <br />
+                <span>
+                    We have recorded that you cannot attend.
+                </span>
+            }
+
+        </p>
+
+
+
+
+        <div class="event-summary">
+
+
+            <div>
+                📅
+                @evt.Date.ToString("MMMM dd, yyyy")
+            </div>
+
+
+            <div>
+                📍
+                @evt.Location
+            </div>
+
+
+        </div>
+
+
+
+
+        <a asp-controller="Events"
+           asp-action="Index"
+           class="confirmation-button">
+
+            Back to Events →
+
+        </a>
+
+
+    </div>
+
+
 </section>
