@@ -1,34 +1,145 @@
-@{
-    ViewData["Title"] = "Sign in";
+﻿@{
+    ViewData["Title"] = "Sign In";
 }
 
-<section class="auth-card">
-    <h1>Sign In</h1>
-    <p class="auth-subtitle">Use the account credentials provided by your team.</p>
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="form-error">@ViewBag.Error</div>
+<div class="login-wrapper">
+
+    <div class="background-shape shape-one"></div>
+    <div class="background-shape shape-two"></div>
+
+
+    <div class="login-card">
+
+
+        <div class="login-header">
+
+            <div class="logo">
+                🎉
+            </div>
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p>
+                Sign in to manage your events and RSVP invitations.
+            </p>
+
+        </div>
+
+
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="error-box">
+                @ViewBag.Error
+            </div>
+        }
+
+
+
+        <form method="post" action="/Account/Login">
+
+
+            @Html.AntiForgeryToken()
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Username
+                </label>
+
+                <div class="input">
+
+                    <span>👤</span>
+
+                    <input name="username"
+                           placeholder="Enter username"
+                           required />
+
+                </div>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+
+                <div class="input">
+
+                    <span>🔒</span>
+
+                    <input id="password"
+                           type="password"
+                           name="password"
+                           placeholder="Enter password"
+                           required />
+
+                    <button type="button"
+                            onclick="showPassword()">
+
+                        👁
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <button class="login-button">
+
+                Sign In
+
+            </button>
+
+
+        </form>
+
+
+
+        <div class="demo-card">
+
+            <span>
+                Demo Account
+            </span>
+
+            <br />
+
+            admin / admin123
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+    function showPassword(){
+
+        let p=document.getElementById("password");
+
+        p.type =
+        p.type==="password"
+        ?"text"
+        :"password";
+
     }
 
-    <form method="post" action="/Account/Login">
-        @Html.AntiForgeryToken()
-
-        <div class="field">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" autocomplete="username" required />
-        </div>
-
-        <div class="field">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" autocomplete="current-password" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-    </form>
-
-    <div class="hint-box">
-        Demo credentials (static list, no database): <br />
-        <strong>admin / admin123</strong>
-    </div>
-</section>
+</script>
